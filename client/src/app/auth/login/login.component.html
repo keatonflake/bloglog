@@ -1,0 +1,46 @@
+<section class="flex flex-col items-center justify-center min-h-screen p-6">
+    <h1 class="text-4xl font-bold mb-10">Login to Blog Log</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"
+        class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md space-y-6">
+        <h2 class="text-2xl font-semibold text-slate-800 mb-4 text-center">Welcome Back</h2>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+            {{ errorMessage }}
+        </div>
+
+        <!-- Email Field -->
+        <div>
+            <input type="email" formControlName="email" placeholder="Enter your Email"
+                [class.border-red-500]="hasError('email')"
+                class="w-full text-slate-900 px-4 py-3 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500" />
+            <div *ngIf="hasError('email')" class="text-red-500 text-sm mt-1">
+                {{ getFieldError('email') }}
+            </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+            <input type="password" formControlName="password" placeholder="Enter your password"
+                [class.border-red-500]="hasError('password')"
+                class="w-full text-slate-900 px-4 py-3 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500" />
+            <div *ngIf="hasError('password')" class="text-red-500 text-sm mt-1">
+                {{ getFieldError('password') }}
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="isLoading"
+            class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-slate-700 transition disabled:opacity-50">
+            <span *ngIf="!isLoading">Login</span>
+            <span *ngIf="isLoading">Logging in...</span>
+        </button>
+
+    </form>
+
+    <p class="pt-5">New User? <a class="underline hover:text-blue-400 cursor-pointer" routerLink="/register"> Click Here
+            🎯
+        </a>
+    </p>
+</section>

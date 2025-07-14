@@ -1,0 +1,28 @@
+<section class="flex flex-col items-center justify-center min-h-screen p-6">
+    <h1 class="text-4xl font-bold mb-10">Welcome To Blog Log 🎉</h1>
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()"
+        class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md space-y-6">
+
+        <h2 class="text-2xl font-semibold text-slate-800 mb-4 text-center">Create your Profile</h2>
+
+        <input type="text" formControlName="username" placeholder="Create a username"
+            class="w-full text-slate-900 px-4 py-3 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500"
+            required />
+        <input type="email" formControlName="email" placeholder="Enter your Email"
+            class="w-full text-slate-900 px-4 py-3 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500"
+            required />
+        <input type="password" formControlName="password" placeholder="Create a password"
+            class="w-full text-slate-900 px-4 py-3 border border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500"
+            required />
+        <button type="submit"
+            class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-slate-700 transition">
+            Next
+        </button>
+    </form>
+    <p class="pt-5">Have an Account? <a class="underline hover:text-blue-400 cursor-pointer" routerLink="/login"> Click
+            Here 🎯
+        </a>
+    </p>
+
+</section>
