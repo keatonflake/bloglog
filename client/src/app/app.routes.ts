@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './user/home/home.component';
+import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
@@ -14,7 +14,7 @@ export const routes: Routes = [
         path: '', component: HomeComponent,
         canActivate: [AuthGuard]
     },
-    { path: 'blog:id', component: BlogComponent },
     { path: 'add-edit/blog', component: BlogAddEdit },
-    { path: 'blog:id', component: BlogComponent },
+    { path: 'add-edit/blog/:id', component: BlogAddEdit },
+    { path: 'blog/:id', component: BlogComponent },
 ];

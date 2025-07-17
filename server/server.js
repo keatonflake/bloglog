@@ -26,7 +26,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
-// app.use('/api/blog', blogRoutes);
+app.use("/api/blog", blogRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });

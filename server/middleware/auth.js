@@ -23,9 +23,7 @@ export const protect = async (req, res, next) => {
       return sendAuthError(res, "User no longer exists");
     }
 
-    if (!user.isActive) {
-      return sendAuthError(res, "User account is deactivated");
-    }
+    console.log("User recieved! :", user);
 
     req.user = user;
     next();
@@ -44,41 +42,28 @@ export const protect = async (req, res, next) => {
   }
 };
 
-// Optional auth middleware - doesn't fail if no token
-// const optionalAuth = async (req, res, next) => {
-//   try {
-//     const token = extractToken(req);
+export const optionalAuth = async (req, res, next) => {
+  try {
+    const token = extractToken(req);
 
-//     if (!token) {
-//       return next(); // Continue without user
-//     }
+    if (!token) {
+      req.user = null;
+      return next();
+    }
 
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     const user = await User.findById(decoded.userId);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await UserModel.findById(decoded.userId);
 
-//     if (user && user.isActive) {
-//       req.user = user;
-//     }
+    if (user) {
+      req.user = user;
+    } else {
+      req.user = null;
+    }
 
-//     next();
-//   } catch (error) {
-//     // Log error but don't fail the request
-//     console.log("Optional auth error:", error);
-//     next();
-//   }
-// };
-
-// Role-based protection
-// const requireRole = (roles) => {
-//   return (req, res, next) => {
-//     if (!req.user) {
-//       return sendAuthError(res, "Authentication required");
-//     }
-
-//     if (!roles.includes(req.user.role)) {
-//       return sendAuthError(res, "Insufficient permissions", 403);
-//     }
-
-//     next();
-//   };
-// };
+    next();
+  } catch (error) {
+    console.log("Optional auth error:", error);
+    req.user = null;
+    next();
+  }
+};
